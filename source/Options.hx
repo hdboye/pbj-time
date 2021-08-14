@@ -114,6 +114,11 @@ class Options
 	public var dummy:Bool = false;
 	public var dummyInt:Int = 0;
 
+	// pbj
+	public var bananaChar:Int = 0;
+	public var hudEnabled:Bool = false;
+	public var healthEnabled:Bool = false;
+
 	// gameplay
 	public var controls:Array<FlxKey> = [FlxKey.A,FlxKey.S,FlxKey.K,FlxKey.L,FlxKey.R];
 	public var ghosttapping:Bool = false;
@@ -127,7 +132,7 @@ class Options
 	// appearance
 	public var backTrans:Float = 0;
 	public var downScroll:Bool = false;
-	public var middleScroll:Bool = false;
+	public var middleScroll:Bool = true;
 	public var picoShaders:Bool = true;
 	public var picoCamshake:Bool = true;
 	public var senpaiShaders:Bool = true;

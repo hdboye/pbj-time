@@ -24,16 +24,14 @@ class MainMenuState extends MusicBeatState
 {
 	var curSelected:Int = 0;
 
-	var menuItems:FlxTypedGroup<FlxSprite>;
+	var menuItems:FlxTypedGroup<FlxText>;
+	var banana:FlxSprite;
 
 	#if !switch
-	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', 'options'];
+	var optionShit:Array<String> = ['pbj', 'donate', 'options'];
 	#else
-	var optionShit:Array<String> = ['story mode', 'freeplay'];
+	var optionShit:Array<String> = ['story mode'];
 	#end
-
-	var magenta:FlxSprite;
-	var camFollow:FlxObject;
 
 	override function create()
 	{
@@ -49,53 +47,35 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.x = 0;
-		bg.scrollFactor.y = 0.18;
-		bg.setGraphicSize(Std.int(bg.width * 1.1));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = true;
-		add(bg);
-
-		camFollow = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.x = 0;
-		magenta.scrollFactor.y = 0.18;
-		magenta.setGraphicSize(Std.int(magenta.width * 1.1));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = true;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
-		// magenta.scrollFactor.set();
-
-		menuItems = new FlxTypedGroup<FlxSprite>();
+		menuItems = new FlxTypedGroup<FlxText>();
 		add(menuItems);
+
+		banana = new FlxSprite(745, 235);
+		banana.frames = Paths.getSparrowAtlas('characters/banana-normal', 'shared');
+		banana.animation.addByPrefix('idle', 'pbj', 12);
+		banana.setGraphicSize(Std.int(banana.width*2.5), Std.int(banana.height*2.5));
+		banana.animation.play('idle');
+		add(banana);
 
 		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
 
 		for (i in 0...optionShit.length)
 		{
-			var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
-			menuItem.frames = tex;
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
+			var menuItem:FlxText;
+			/* BTW IF U WANNA KNOW, LITTLE TUTORIAL
+			THE ? : THINGS ARE LIKE AN IF ELSE STATEMENT
+			BASICALLY ITS LIKE
+			[thing that returns true or false] ? [code it does if its true] : [code it does of its false]
+			AKA A LIL WAY TO MAKE UR CODE SHORTER
+			HOPE YA LEARNED SUM */
+			menuItem = new FlxText(55, 165+(menuItems.members[i-1] == null ? 0 : (menuItems.members[i-1].height + 20) * menuItems.length));
+			menuItem.setFormat(Paths.font('funky.ttf'), 96); // im sorry for using a font i'm too lazy to use alphabet
+			menuItem.text = optionShit[i].toUpperCase();
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
-			menuItem.scrollFactor.set();
-			menuItem.antialiasing = true;
 		}
 
-		FlxG.camera.follow(camFollow, null, 0.06);
-
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "v" + Application.current.meta.get('version') + " - Andromeda Engine B6", 12);
-		versionShit.scrollFactor.set();
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, Application.current.meta.get('version') + " - Andromeda B6", 12);
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
@@ -144,17 +124,12 @@ class MainMenuState extends MusicBeatState
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-					if(OptionUtils.options.menuFlash){
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-					}else{
-						magenta.visible=true;
-					}
 
-					menuItems.forEach(function(spr:FlxSprite)
+					menuItems.forEach(function(spr:FlxText)
 					{
 						if (curSelected != spr.ID)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							FlxTween.tween(spr, {x: -800}, 0.5, {
 								ease: FlxEase.quadOut,
 								onComplete: function(twn:FlxTween)
 								{
@@ -171,13 +146,19 @@ class MainMenuState extends MusicBeatState
 
 									switch (daChoice)
 									{
-										case 'story mode':
-											FlxG.switchState(new StoryMenuState());
-											trace("Story Menu Selected");
-										case 'freeplay':
-											FlxG.switchState(new FreeplayState());
-											trace("Freeplay Menu Selected");
+										case 'pbj':
+											PlayState.storyPlaylist = ['pbj'];
+											PlayState.isStoryMode = true;
 
+											PlayState.storyDifficulty = 2;
+
+											PlayState.SONG = Song.loadFromJson('pbj-hard', 'pbj');
+											PlayState.storyWeek = 0;
+											PlayState.campaignScore = 0;
+											new FlxTimer().start(1, function(tmr:FlxTimer)
+											{
+												LoadingState.loadAndSwitchState(new PlayState(), true);
+											});
 										case 'options':
 											FlxG.switchState(new OptionsMenu());
 									}
@@ -188,12 +169,8 @@ class MainMenuState extends MusicBeatState
 
 									switch (daChoice)
 									{
-										case 'story mode':
-											FlxG.switchState(new StoryMenuState());
-											trace("Story Menu Selected");
-										case 'freeplay':
-											FlxG.switchState(new FreeplayState());
-											trace("Freeplay Menu Selected");
+										case 'pbj':
+											FlxG.switchState(new PlayState());
 
 										case 'options':
 											FlxG.switchState(new OptionsMenu());
@@ -207,11 +184,6 @@ class MainMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
 	}
 
 	function changeItem(huh:Int = 0)
@@ -223,14 +195,13 @@ class MainMenuState extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
 
-		menuItems.forEach(function(spr:FlxSprite)
+		menuItems.forEach(function(spr:FlxText)
 		{
-			spr.animation.play('idle');
-
 			if (spr.ID == curSelected)
 			{
-				spr.animation.play('selected');
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
+				spr.text = '> ' + spr.text + ' <';
+			} else {
+				spr.text = optionShit[spr.ID].toUpperCase();
 			}
 
 			spr.updateHitbox();

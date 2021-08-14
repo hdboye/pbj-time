@@ -21,6 +21,11 @@ class OptionsMenu extends MusicBeatState
 {
 	public static var instance:OptionsMenu;
 	private var defCat:OptionCategory = new OptionCategory("Default",[
+		new OptionCategory("PBJ", [
+			new ScrollOption("bananaChar",0,PlayState.bananas.length-1,PlayState.bananas), // all da bananas are stored in playstate.hx
+			new ToggleOption("hudEnabled", "Enable HUD", "Enables the HUD in-game, usually disabled in this mod."),
+			new ToggleOption("healthEnabled", "Enable Health", "Enables health drain, addition and health bar. Usually turned off because i want this mod to be fun and not challenging."),
+		]),
 		new OptionCategory("Gameplay",[
 			new OptionCategory("Controls",[
 				new ControlOption(controls,Control.LEFT),
@@ -40,7 +45,7 @@ class OptionsMenu extends MusicBeatState
 		]),
 		new OptionCategory("Appearance",[
 			new ToggleOption("downScroll","Downscroll","Do arrows come from the top coming down"),
-			new ToggleOption("middleScroll","Middlescroll","Are arrows placed in the middle of the screen"),
+			//new ToggleOption("middleScroll","Middlescroll","Are arrows placed in the middle of the screen"),
 			new OptionCategory("Effects",[
 				new ToggleOption("picoShaders","Week 3 shaders","Does the windows fading out in week 3 use shaders"),
 				new ToggleOption("picoCamshake","Week 3 cam shake","Does the train cause a camera shake in week 3"),

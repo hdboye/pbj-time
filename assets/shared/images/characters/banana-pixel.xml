@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="sprites.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="pbj0000"	x="470"	y="499"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0001"	x="1410"	y="0"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0002"	x="940"	y="499"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0003"	x="940"	y="0"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0004"	x="1410"	y="499"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0005"	x="470"	y="0"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0006"	x="0"	y="499"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+	<SubTexture name="pbj0007"	x="0"	y="0"	width="469"	height="498" frameX="-0" frameY="-0" frameWidth="469" frameHeight="498"/>
+</TextureAtlas>

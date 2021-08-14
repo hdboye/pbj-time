@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="banana-normal.png">
+	<SubTexture name="pbj0000"	x="0"	y="0"	width="220"	height="217" frameX="-0" frameY="-0" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0001"	x="221"	y="218"	width="219"	height="218" frameX="-0" frameY="-2" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0002"	x="441"	y="0"	width="218"	height="218" frameX="-0" frameY="-0" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0003"	x="660"	y="219"	width="211"	height="218" frameX="-9" frameY="-2" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0004"	x="221"	y="0"	width="219"	height="217" frameX="-1" frameY="-3" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0005"	x="441"	y="219"	width="218"	height="220" frameX="-2" frameY="-0" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0006"	x="0"	y="218"	width="220"	height="218" frameX="-0" frameY="-0" frameWidth="220" frameHeight="220"/>
+	<SubTexture name="pbj0007"	x="660"	y="0"	width="212"	height="218" frameX="-6" frameY="-2" frameWidth="220" frameHeight="220"/>
+</TextureAtlas>
